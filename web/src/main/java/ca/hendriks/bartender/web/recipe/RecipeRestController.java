@@ -36,4 +36,10 @@ public class RecipeRestController {
         recipeRepository.save(recipeToBeUpdated);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteRecipe(@PathVariable final int id){
+        recipeRepository.deleteById(id);
+    }
+
 }

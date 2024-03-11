@@ -9,11 +9,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Service
+@Transactional
 public class BddRecipeService {
 
     private final ObjectMapper objectMapper;
@@ -59,5 +61,10 @@ public class BddRecipeService {
 
     public void cleanup(){
         recipeRepository.deleteAll();
+    }
+
+    public void deleteRecipe(final String recipeName) {
+        final int recipeId = recipeRepository.findByName(recipeName).getId();
+        mockMvc.delete("/recipes", recipeId);
     }
 }

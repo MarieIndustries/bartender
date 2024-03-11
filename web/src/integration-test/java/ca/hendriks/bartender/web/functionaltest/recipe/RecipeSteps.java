@@ -149,6 +149,19 @@ public class RecipeSteps {
         assertEquals(first, second);
     }
 
+    @When("the administrator deletes the recipe named {string}")
+    public void the_administrator_deletes_the_recipe_named(final String recipeName) {
+        dsl.recipes.deleteRecipe(recipeName);
+
+
+    }
+    @Then("there will be {int} recipes available")
+    public void there_will_be_recipes_available(final Integer recipeCount) {
+        List<Recipe> expectedRecipes = dsl.recipes.getRecipes();
+        assertEquals(recipeCount, expectedRecipes.size());
+    }
+
+
     @After
     public void cleanup(){
         dsl.recipes.cleanup();
